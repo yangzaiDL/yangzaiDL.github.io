@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YangZaidl | 技术开发者主页</title>
+    
+    <!-- 科技风字体与图标 -->
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <link href=" https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Orbitron:wght@400;700&display=swap " rel="stylesheet">
+    
+    <!-- 科技感CSS样式 -->
+    <style>
+        :root {
+            --primary-color: #00d9ff;
+            --secondary-color: #7b00ff;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(16, 18, 27, 0.8);
+            --text-color: #e0e0ff;
+            --accent-glow: 0 0 15px var(--primary-color);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 217, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(123, 0, 255, 0.05) 0%, transparent 20%);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 导航栏 - 科技感玻璃态效果 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+            text-shadow: var(--accent-glow);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+        
+        /* IMA知识库特殊按钮 */
+        .ima-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white !important;
+            padding: 0.5rem 1.5rem !important;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+        }
+        
+        .ima-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary-color), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .typing-text {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
+            margin-bottom: 2rem;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color) }
+        }
+        
+        /* 动态徽章区域 */
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .badge {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .badge:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: var(--accent-glow);
+        }
+        
+        /* 内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        /* 项目卡片 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+        
+        /* 技术栈徽章墙 */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(123, 0, 255, 0.1));
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(123, 0, 255, 0.2));
+            transform: scale(1.05);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: rgba(5, 5, 10, 0.95);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="logo">YANGZAIDL</a>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#about">关于</a>
+            <a href="#projects">项目</a>
+            <a href="#tech">技术栈</a>
+            <a href=" https://ima.qq.com/wiki/?shareId=092edc684c807444129d79d96f0247e5506ad938802cc5f0ed3ed94abd1035b0 " class="ima-btn" target="_blank">
+                <i class="fas fa-robot"></i> IMA知识库
+            </a>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="typing-text">Hello, World! I'm YangZaidl</div>
+        <h1>全栈开发者 & AI探索者</h1>
+        <p>专注于前沿技术研究与实践，构建智能化的数字解决方案。探索人工智能与软件工程的交叉领域。</p>
+        
+        <!-- 动态徽章展示 -->
+        <div class="badges">
+            <div class="badge">
+                <i class="fas fa-code"></i>
+                <span>全栈开发</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-brain"></i>
+                <span>AI/ML实践</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-server"></i>
+                <span>云原生架构</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-rocket"></i>
+                <span>技术布道</span>
+            </div>
+        </div>
+        
+        <!-- IMA知识库主推按钮 -->
+        <a href=" https://ima.qq.com/wiki/?shareId=092edc684c807444129d79d96f0247e5506ad938802cc5f0ed3ed94abd1035b0 " 
+           class="ima-btn" 
+           style="margin-top: 2rem; font-size: 1.2rem; padding: 1rem 2rem;" 
+           target="_blank">
+            <i class="fas fa-book-open"></i> 进入 IMA AI编程知识库 →
+        </a>
+    </section>
+
+    <!-- 关于区域 -->
+    <section class="container" id="about">
+        <h2 class="section-title">关于我</h2>
+        <div class="project-card" style="max-width: 800px; margin: 0 auto;">
+            <h3 style="color: var(--primary-color); margin-bottom: 1rem;">
+                <i class="fas fa-terminal"></i> 技术背景
+            </h3>
+            <p>我是一名热衷于技术创新和开源文化的开发者。通过持续学习和实践，我在多个技术领域积累了丰富经验，特别关注人工智能在实际场景中的应用。</p>
+            <p style="margin-top: 1rem;">我的技术理念是：<strong>"用代码解决实际问题，用创新推动技术进步"</strong>。我相信技术应该服务于人类，让复杂的事情变得简单。</p>
+            
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
+                    <i class="fas fa-link"></i> 重要资源
+                </h4>
+                <p>我正在系统学习AI编程知识，并将学习笔记和实践心得整理在IMA知识库中：</p>
+                <a href=" https://ima.qq.com/wiki/?shareId=092edc684c807444129d79d96f0247e5506ad938802cc5f0ed3ed94abd1035b0 " 
+                   target="_blank"
+                   style="display: inline-block; margin-top: 1rem; color: var(--primary-color); text-decoration: none; border-bottom: 1px dashed var(--primary-color);">
+                    <i class="fas fa-external-link-alt"></i> 访问我的AI学习笔记：IMA知识库
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section class="container" id="projects">
+        <h2 class="section-title">精选项目</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3><i class="fab fa-github"></i> GitHub主页项目</h3>
+                <p>这个个人主页项目使用纯HTML/CSS/JavaScript构建，采用科技风设计，完全托管在GitHub Pages上。</p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    <span>HTML5</span> · 
+                    <span>CSS3</span> · 
+                    <span>JavaScript</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3><i class="fas fa-robot"></i> AI学习知识库</h3>
+                <p>系统整理AI编程学习笔记、实践案例和技术思考，形成结构化的知识体系。</p>
+                <a href=" https://ima.qq.com/wiki/?shareId=092edc684c807444129d79d96f0247e5506ad938802cc5f0ed3ed94abd1035b0 " 
+                   target="_blank"
+                   style="color: var(--primary-color); text-decoration: none; display: inline-block; margin-top: 1rem;">
+                    <i class="fas fa-external-link-alt"></i> 访问知识库
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <h3><i class="fas fa-tools"></i> 技术工具集</h3>
+                <p>收集和开发提高开发效率的工具和脚本，包括自动化部署、代码生成器等实用工具。</p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: #aaa;">
+                    <span>Python</span> · 
+                    <span>Shell</span> · 
+                    <span>Docker</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section class="container" id="tech">
+        <h2 class="section-title">技术栈</h2>
+        <div class="tech-stack">
+            <span class="tech-badge">JavaScript/TypeScript</span>
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">React/Vue</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Docker/K8s</span>
+            <span class="tech-badge">Git/GitHub</span>
+            <span class="tech-badge">AI/ML框架</span>
+            <span class="tech-badge">云服务</span>
+            <span class="tech-badge">数据库</span>
+            <span class="tech-badge">DevOps</span>
+        </div>
+        
+        <!-- GitHub动态徽章 -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <h3 style="margin-bottom: 1rem; color: var(--primary-color);">
+                <i class="fab fa-github"></i> GitHub动态
+            </h3>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem;">
+                <!-- 使用Shields.io动态徽章 -->
+                <img src="https://img.shields.io/github/last-commit/yangzaidl/yangzaidl.github.io?style=for-the-badge&logo=github&color=00d9ff&label=最后更新" alt="最后提交">
+                <img src="https://img.shields.io/badge/构建状态-在线-success?style=for-the-badge&logo=github-pages&color=7b00ff" alt="构建状态">
+                <img src="https://img.shields.io/badge/技术栈-现代前端-blue?style=for-the-badge&logo=visual-studio-code" alt="技术栈">
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href=" https://github.com/yangzaidl " target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" title="技术博客">
+                    <i class="fas fa-blog"></i>
+                </a>
+                <a href="mailto:your-email@example.com" title="电子邮件">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <p>© 2025 YangZaidl. 基于GitHub Pages构建。</p>
+                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">
+                    本页面持续更新中 | 
+                    <a href=" https://ima.qq.com/wiki/?shareId=092edc684c807444129d79d96f0247e5506ad938802cc5f0ed3ed94abd1035b0 " 
+                       target="_blank"
+                       style="color: var(--primary-color); text-decoration: none;">
+                        <i class="fas fa-external-link-alt"></i> 访问我的AI知识库
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 简单的JavaScript交互 -->
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+                navbar.style.backdropFilter = 'blur(15px)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 15, 0.85)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
